@@ -299,11 +299,9 @@ public class Board extends AbstractConfigurable implements GridContainer {
 
   private final ConcurrentMap<Point, Future<BufferedImage>> o_requested = new ConcurrentHashMap<>();
 
-  private static final Comparator<Point> tileOrdering = (t1, t2) -> {
-    if (t1.y < t2.y) return -1;
-    if (t1.y > t2.y) return 1;
-    return t1.x - t2.x;
-  };
+  private static final Comparator<Point> tileOrdering = Comparator
+          .comparingInt((Point t) -> t.y)
+          .thenComparingInt(t -> t.x);
 
   protected void drawTile(Graphics g, Future<BufferedImage> fim,
                           int tx, int ty, Component obs) {
